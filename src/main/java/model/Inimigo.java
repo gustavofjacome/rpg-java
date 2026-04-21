@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Random;
+
 @NoArgsConstructor
 @Getter
 @Setter
@@ -17,13 +19,36 @@ public class Inimigo extends Personagem{
     }
 
     public void realizarTurno(Personagem heroi) {
-        /* TODO
-        ADICIONAR UM COMPORTAMENTO ALEATORIO TIPO:
-           IMPORTAR A RANDOM E SORTEAR UM DADO DE 1 A 100
-           SE FOR DE 1 A 60 ATACA
-           SE FOR DE 61 A 95 ELE DEFENDE MAS ELE SO DEFENDE SE A VIDA DO HEROI FOR MAIOR QUE A DELE
-           SE FOR DE 95 A 100 ELE FOGE MAS ELE SO FOGE SE A VIDA DELE FOR MENOR QUE A DO HEROI
-         */
+        Random dado100 = new Random();
+        int dadoLancado = dado100.nextInt(100) + 1;
+
+        if (dadoLancado <= 60) {
+            atacar(heroi);
+            System.out.println(getNome() + " atacou");
+
+        } else if (dadoLancado <= 95) {
+
+            if (heroi.getVida() >= this.getVida()) {
+                defender();
+                System.out.println(getNome() + " está se defendendo");
+            } else {
+                atacar(heroi);
+                System.out.println(getNome() + " decidiu atacar");
+            }
+
+        } else {
+
+            if (this.getVida() < heroi.getVida()) {
+                if (fugir()) {
+                    System.out.println(getNome() + " fugiu da batalha!");
+                } else {
+                    System.out.println(getNome() + " tentou fugir, mas falhou!");
+                    atacar(heroi);
+                }
+            } else {
+                atacar(heroi);
+            }
+        }
     }
 
 }
