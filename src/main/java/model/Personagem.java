@@ -12,10 +12,12 @@ import java.util.Random;
 public class Personagem {
 
     private String nome;
-    private int vidaMax;
     private int vida;
     private int ataque;
     private int defesa;
+    private int vidaMax;
+    private boolean defesaUsada;
+    private int agilidade;
 
     public void atacar(Personagem alvo) {
         int dano = this.getAtaque() - alvo.getDefesa();
@@ -38,14 +40,23 @@ public class Personagem {
 
     public void defender() {
         this.defesa += 5;
+        defesaUsada = true;
     }
 
     public boolean fugir() {
         Random dado = new Random();
         int chance = dado.nextInt(100) + 1;
 
-
         return chance <= 50;
+    }
+
+    public boolean conseguiuEsquivar(int agilidadeAtacante) {
+        Random random = new Random();
+        int chanceFinal = 10 + (this.getAgilidade() - agilidadeAtacante);
+
+        chanceFinal = Math.max(5, Math.min(chanceFinal, 70));
+
+        return (random.nextInt(100) + 1) <= chanceFinal;
     }
 
 }

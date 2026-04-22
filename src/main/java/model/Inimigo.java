@@ -13,8 +13,8 @@ import java.util.Random;
 public class Inimigo extends Personagem{
     private int xpFornecido;
 
-    public Inimigo(String nome, int vida, int ataque, int defesa, int xpFornecido, int vidaMax){
-        super(nome, vida, ataque, defesa, vidaMax); // ta chamando os atributos da classe mãe para o construtor
+    public Inimigo(String nome, int vida, int ataque, int defesa, int xpFornecido, int vidaMax, boolean defesaUsada, int agilidade){
+        super(nome, vida, ataque, defesa, vidaMax, defesaUsada, agilidade); // ta chamando os atributos da classe mãe para o construtor
         this.xpFornecido = xpFornecido;
     }
 
@@ -24,25 +24,25 @@ public class Inimigo extends Personagem{
 
         if (dadoLancado <= 60) {
             atacar(heroi);
-            System.out.println(getNome() + " atacou");
+            System.out.println("= >>>>> " + getNome() + " atacou");
 
         } else if (dadoLancado <= 95) {
 
             if (heroi.getVida() >= this.getVida()) {
                 defender();
-                System.out.println(getNome() + " está se defendendo");
+                System.out.println("= >>>>> " + getNome() + " está se defendendo");
             } else {
                 atacar(heroi);
-                System.out.println(getNome() + " decidiu atacar");
+                System.out.println("= >>>>> " + getNome() + " decidiu atacar");
             }
 
         } else {
 
             if (this.getVida() < heroi.getVida()) {
                 if (fugir()) {
-                    System.out.println(getNome() + " fugiu da batalha!");
+                    System.out.println("= >>>>> " + getNome() + " fugiu da batalha!");
                 } else {
-                    System.out.println(getNome() + " tentou fugir, mas falhou!");
+                    System.out.println("= >>>>> " + getNome() + " tentou fugir, mas falhou!");
                     atacar(heroi);
                 }
             } else {
